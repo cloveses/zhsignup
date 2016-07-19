@@ -69,7 +69,7 @@ for row in data_rows:
     #         break
     vtxt = input('captcha:')
     br.find_element_by_name('jcaptcha').send_keys(vtxt)
-    
+    br.find_element_by_id('login-btn').click()
     c = input(':')
     if c == 'q':
         break
