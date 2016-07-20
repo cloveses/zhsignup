@@ -1,7 +1,7 @@
 # import win32clipboard as w
 import xlrd
 import time
-import pyperclip
+# import pyperclip
 from selenium import webdriver
 br = webdriver.Firefox()
 
@@ -11,8 +11,8 @@ br = webdriver.Firefox()
 #     w.SetClipboardText(data)
 #     w.CloseClipboard()
 
-def set_clip(data):
-    pyperclip.copy(data)
+# def set_clip(data):
+#     pyperclip.copy(data)
 
 
 ws = xlrd.open_workbook('data.xls')
@@ -42,7 +42,7 @@ for row in data_rows:
     br.find_element_by_name('currentTZzbmb.fxm').send_keys(row[2])
     br.find_element_by_name('currentTZzbmb.fsfzh').send_keys(row[7])
     br.find_element_by_name('currentTZzbmb.fdhhm').send_keys(row[5])
-    print(row[2])
+    print(row[0],row[2])
     # br.find_element_by_link_text("注册").click()
 
     # br.find_elements_by_name('currentTZzbmb.fxm')[1].send_keys(row[2])
@@ -72,24 +72,70 @@ for row in data_rows:
     br.find_element_by_name('jcaptcha').send_keys(vtxt)
     br.find_element_by_id('login-btn').click()
 
-    br.find_element_by_link_text('报考中职学校').click()
+    # br.find_element_by_link_text('报考中职学校').click()
 
-    # time.sleep(4)
+    for i in range(50):
+        flag = True
+        try:
+            br.find_element_by_link_text('报考中职学校').click()
+        except:
+            flag = False
+            print('sleep')
+        time.sleep(2)
+        if flag:
+            break
 
-    # br.find_element_by_xpath("//span[contains(text(),'确认')]").click()
-    # br.find_element_by_id('grq_f5bm_edit_form').submit()
+
+
+    for i in range(50):
+        flag = True
+        try:
+            br.find_element_by_partial_link_text('确认').click()
+        except:
+            flag = False
+            print('sleep')
+        time.sleep(2)
+        if flag:
+            break
+
+    for i in range(50):
+        flag = True
+        try:
+            br.find_element_by_partial_link_text('确定').click()
+        except:
+            flag = False
+            print('sleep')
+            time.sleep(1)
+            br.find_element_by_partial_link_text('确认').click()
+        time.sleep(0.5)
+
+        if flag:
+            break
+
+    for i in range(50):
+        flag = True
+        try:
+            br.find_element_by_partial_link_text('注销').click()
+        except:
+            flag = False
+            print('sleep')
+        time.sleep(2)
+        if flag:
+            break
+
+
+
     # time.sleep(10)
-
-    # br.find_element_by_link_text('确定').click()
-    # br.switch_to_alert().accept()
-    # time.sleep(15)
-
-    # br.find_element_by_xpath("//span[contains(text(),'注销')]").click()
-    # br.find_element_by_link_text('注销').click()
-
-    c = input(':')
-    if c == 'q':
-        break
+    # br.find_element_by_partial_link_text('确认').click()
+    # time.sleep(10)
+    # br.find_element_by_partial_link_text('确定').click()
+    # # br.implicitly_wait(30)
+    # time.sleep(45)
+    # br.find_element_by_partial_link_text('注销').click()
+    time.sleep(0.5)
+    # c = input(':')
+    # if c == 'q':
+    #     break
 
 
 br.quit()
