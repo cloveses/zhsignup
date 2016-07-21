@@ -50,6 +50,15 @@ for row in data_rows:
     br.find_element_by_name('currentTZzbmb.ftxdz').send_keys(row[6])
     br.find_element_by_name('currentTZzbmb.fyzbm').send_keys('234300')
 
+
+    selectors = br.find_elements_by_css_selector("a.textbox-icon")
+    select_option_ids = ['_easyui_combobox_i1_2','_easyui_combobox_i2_0','_easyui_combobox_i6_1',
+        '_easyui_combobox_i3_2','_easyui_combobox_i4_12','_easyui_combobox_i5_4'
+        ]
+    for slt,slt_id in zip(selectors,select_option_ids):
+        slt.click()
+        br.find_element_by_id(slt_id).click()
+    br.find_element_by_partial_link_text('保存').click()
     # br.find_element_by_name('currentTZzbmb.fmmdm').send_keys('13')
     # br.find_element_by_name('currentTZzbmb.fmzdm').send_keys('01')
     # br.find_element_by_name('currentTZzbmb.fxldm').send_keys('7')
@@ -68,6 +77,7 @@ for row in data_rows:
     #         break
     vtxt = input('captcha:')
     br.find_element_by_name('jcaptcha').send_keys(vtxt)
+    br.find_element_by_partial_link_text('登录').click()
     c = input(':')
     if c == 'q':
         break
